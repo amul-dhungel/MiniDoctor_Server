@@ -21,4 +21,26 @@ router.route('/register').post((req, res) => {
         })
 })
 
+router.route('/update/:username').patch((req, res) => {
+    User.findOneAndUpdate(
+        { username: req.params.username },
+        { $set: { password: req.body.password } },
+        (err, result) => {
+            if (err) return res.status(500).json({ msg: err })
+            const msg = {
+                msg: "password successfully updated",
+                username: req.params.username,
+            }
+
+            return res.json(msg)
+        }
+    )
+})
+
+router.route('/delete/:username').delete((req, res) => {
+
+})
+
+
+
 module.exports = router
