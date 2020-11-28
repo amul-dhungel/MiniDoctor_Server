@@ -2,24 +2,35 @@ const express = require('express')
 const mongoose = require('mongoose')
 const port = process.env.PORT || 5000
 const app = express()
+
+// mongodb link setup
+
 mongoose.connect('mongodb+srv://admin:admin@minidoctor.3ef6h.mongodb.net/AppDB?retryWrites=true&w=majority', { useNewUrlParser: true });
 
+// mongodb connection setup
 
 const connection = mongoose.connection
 connection.once("open", () => {
     console.log("Mongodb Connected")
 })
 
-middleware.
+// email auth
 
-    app.use(express.json())
+app.use(express.json())
 const userRoute = require('./routes/user')
 app.use('/user', userRoute)
 
+// phone auth
 
+const phoneauth = require('./authconfig/phoneauth')
+app.use('/', phoneauth)
 
-app.route("/").get((req, res) => res.json("hello world"))
+//main section testing
 
-app.listen(port, () => console.log(`server is running on port ${port}`))
+app.route("/").get((req, res) => res.json("Hello World!"))
+
+// Listening port, i.e. setting up local main server port connection
+
+app.listen(port, () => console.log(`Server is running on port ${port}`))
 
 
