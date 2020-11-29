@@ -13,6 +13,7 @@ router.route('/login').get((req, res) => {
         body: Math.floor(Math.pow(10, 6 - 1) + Math.random() * (Math.pow(10, 6) - Math.pow(10, 6 - 1) - 1)),
         from: '+12604758096',
         to: req.body.to
+
     })
         .then((message) => res.send("Message sent"))
         .catch((err) => console.log(err))

@@ -27,7 +27,7 @@ app.use('/', phoneauth)
 
 //main section testing
 
-app.route("/").get((req, res) => res.json("Hello World!"))
+app.route("/").get((req, res) => res.json("Hello World! This is the main page"))
 
 // Listening port, i.e. setting up local main server port connection
 
