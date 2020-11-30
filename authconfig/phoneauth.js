@@ -7,6 +7,8 @@ const express = require('express')
 const router = express.Router()
 
 //routing or transferring it to the specific page,method.
+
+
 var verificationID = Math.floor(Math.pow(10, 6 - 1) + Math.random() * (Math.pow(10, 6) - Math.pow(10, 6 - 1) - 1))
 var checkVerificationID;
 
@@ -16,7 +18,7 @@ router.route('/login').get((req, res) => {
     client.messages.create({
         body: verificationID,
         from: '+12604758096',
-        to: req.body.to
+        to: `+${req.query.phoneNumber}`
 
     })
         .then(() => res.send("Message sent"))
