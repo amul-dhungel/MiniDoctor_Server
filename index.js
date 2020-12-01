@@ -22,7 +22,7 @@ app.use('/user', userRoute)
 
 // phone auth
 
-const phoneauth = require('./authconfig/phoneauth')
+const phoneauth = require('./routes/authconfig/phoneauth')
 app.use('/', phoneauth)
 
 //main section testing
