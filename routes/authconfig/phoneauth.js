@@ -10,7 +10,7 @@ const router = express.Router()
 
 
 var verificationID = Math.floor(Math.pow(10, 6 - 1) + Math.random() * (Math.pow(10, 6) - Math.pow(10, 6 - 1) - 1))
-var checkVerificationID;
+var smscode
 
 // route of sending verification code
 
@@ -40,8 +40,8 @@ router.route('/login').get((req, res) => {
 
 router.route('/verify').get((req, res) => {
 
-    checkVerificationID = req.body.checkVerificationID
-    if (checkVerificationID == verificationID) {
+    smscode = `${req.query.smscode}`
+    if (smscode == verificationID) {
         res.send("verified")
     } else {
         res.send("Not verified")
