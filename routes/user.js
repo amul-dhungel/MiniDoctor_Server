@@ -1,5 +1,5 @@
 const express = require('express')
-const User = require('../models/users_model')
+const User = require('../models/users.model')
 const config = require('../config')
 const jwt = require('jsonwebtoken')
 const middleware = require('../middleware')
@@ -15,28 +15,6 @@ router.route('/:username').get(middleware.checkToken, (req, res) => {
         }).catch(err => console.log(err))
 })
 
-router.route('/login').post((req, res) => {
-    User.findOne({ username: req.body.username }, (err, result) => {
-        if (err) return res.status(500).json({ msg: err })
-        if (result === null) {
-            return res.status(403).json("Username incorrect")
-        }
-        if (result.password === req.body.password) {
-
-            // here we implement the JWT token functionality
-            let token = jwt.sign({ username: req.body.username }, config.key, {
-                expiresIn: "24h"
-            }
-            )
-            res.json({
-                token: token,
-                msg: "Sucess"
-            })
-        } else {
-            res.status(403).json("Password is incorrect")
-        }
-    })
-})
 
 router.route('/register').post((req, res) => {
     console.log("Inside the register");
