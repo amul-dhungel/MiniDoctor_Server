@@ -14,7 +14,7 @@ connection.once("open", () => {
     console.log("Mongodb Connected")
 })
 
-// email auth
+// user details register
 
 app.use(express.json())
 const userRoute = require('./routes/user')
@@ -27,7 +27,11 @@ app.use('/', phoneauth)
 
 //main section testing
 
-app.route("/").get((req, res) => res.json("Hello World! This is the main page"))
+app.route("/").get((req, res) => res.json(
+    {
+        status: "Healthy"
+    }
+))
 
 // Listening port, i.e. setting up local main server port connection
 
