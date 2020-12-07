@@ -23,7 +23,7 @@ const User = Schema({
     },
 
     dateOfBirth: {
-        type: Date,
+        type: String,
         required: true
     },
 
@@ -33,7 +33,8 @@ const User = Schema({
     },
     img: {
         type: String,
-        default: ""
+        default: "",
+        required: false
     }
 
 })
