@@ -1,6 +1,6 @@
 const express = require('express')
 const User = require('../models/users.model')
-const config = require('../config/config')
+const config = require('./authconfig/config')
 const jwt = require('jsonwebtoken')
 const middleware = require('../middleware')
 const multer = require('multer')
@@ -15,7 +15,7 @@ const storage = multer.diskStorage({
         cb(null, "./uploads")
     },
     filename: (req, file, cb) => {
-        cb(null, req.body.phoneNumber + ".jpg")
+        cb(null, req.decoded.phoneNumber + ".jpg")
     }
 })
 
@@ -37,9 +37,9 @@ const upload = multer({
 // adding and update profile image
 
 router.route("/register/image")
-    .patch(upload.single("img"), async (req, res) => {
+    .patch(middleware.checkToken, upload.single("img"), async (req, res) => {
         await User.findOneAndUpdate(
-            { phoneNumber: req.body.phoneNumber },
+            { phoneNumber: req.decoded.phoneNumber },
             {
                 $set: {
                     img: req.file.path
@@ -73,8 +73,15 @@ router.route('/register').post((req, res) => {
     user
         .save()
         .then(() => {
+            let token = jwt.sign({ phoneNumber: req.body.phoneNumber }, config.key, {
+                expiresIn: "24h"
+            })
             console.log("User registered")
-            res.status(200).json("ok")
+            res.status(200).json({
+                status: "ok",
+                token: token
+            })
+
         })
         .catch((err) => {
             res.status(403).json({ msg: err })

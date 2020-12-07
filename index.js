@@ -20,10 +20,16 @@ app.use(express.json())
 const userRoute = require('./routes/user')
 app.use('/user', userRoute)
 
+// profile picture route
+
+app.use('/uploads', express.static("uploads"))
+
 // phone auth
 
 const phoneauth = require('./routes/authconfig/phoneauth')
 app.use('/', phoneauth)
+
+
 
 //main section testing
 
