@@ -35,7 +35,7 @@ app.use('/', phoneauth)
 
 app.route("/").get((req, res) => res.json(
     {
-        status: "Healthy"
+        status: "Healthy again"
     }
 ))
 
