@@ -88,32 +88,7 @@ router.route('/register').post((req, res) => {
         })
 })
 
-router.route('/update/:username').patch(middleware.checkToken, (req, res) => {
-    User.findOneAndUpdate(
-        { username: req.params.username },
-        { $set: { password: req.body.password } },
-        (err, result) => {
-            if (err) return res.status(500).json({ msg: err })
-            const msg = {
-                msg: "password successfully updated",
-                username: req.params.username,
-            }
 
-            return res.json(msg)
-        }
-    )
-})
-
-router.route('/delete/:username').delete(middleware.checkToken, (req, res) => {
-    User.findOneAndDelete({ username: req.params.username }, (err, result) => {
-        if (err) return status(500).json({ msg: err })
-        const msg = {
-            msg: "username deleted",
-            username: req.params.username,
-        }
-        return res.json(msg)
-    })
-})
 
 
 
