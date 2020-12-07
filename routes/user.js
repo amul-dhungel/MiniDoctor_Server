@@ -67,7 +67,7 @@ router.route('/register').post((req, res) => {
         phoneNumber: req.body.phoneNumber,
         email: req.body.email,
         address: req.body.address,
-        dateOfBirth: req.body.dateOfBirth,
+        //dateOfBirth: req.body.dateOfBirth,
         gender: req.body.gender
     })
     user
