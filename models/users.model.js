@@ -7,7 +7,6 @@ const User = Schema({
     name: {
         type: String,
         required: true,
-        unique: true
     },
     phoneNumber: {
         type: String,
