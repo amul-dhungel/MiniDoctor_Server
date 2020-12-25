@@ -75,7 +75,6 @@ router.route('/register').post((req, res) => {
         .save()
         .then(() => {
             let token = jwt.sign({ phoneNumber: req.body.phoneNumber }, config.key, {
-                expiresIn: "24h"
             })
             console.log("User registered")
             res.status(200).json({
