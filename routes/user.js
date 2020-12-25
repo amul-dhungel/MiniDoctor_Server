@@ -74,8 +74,8 @@ router.route('/register').post((req, res) => {
     user
         .save()
         .then(() => {
-            let token = jwt.sign({ phoneNumber: req.body.phoneNumber }, config.key, {
-            })
+            let token = jwt.sign({ phoneNumber: req.body.phoneNumber }, config.key
+            )
             console.log("User registered")
             res.status(200).json({
                 status: "ok",
@@ -89,19 +89,19 @@ router.route('/register').post((req, res) => {
 })
 
 // check profile data
-router.route("/checkProfile").get(middleware.checkToken, (req, res) => {
-    User.findOne({ phoneNumber: req.decoded.phoneNumber }, (err, result) => {
-        if (err) return res.json({ err: err })
-        else if (result == null) {
-            return res.json({
-                status: false
-            })
-        } else {
-            return res.json({ status: true })
-        }
-    }
-    )
-})
+// router.route("/checkProfile").get(middleware.checkToken, (req, res) => {
+//     User.findOne({ phoneNumber: req.decoded.phoneNumber }, (err, result) => {
+//         if (err) return res.json({ err: err })
+//         else if (result == null) {
+//             return res.json({
+//                 status: false
+//             })
+//         } else {
+//             return res.json({ status: true })
+//         }
+//     }
+//     )
+// })
 
 
 

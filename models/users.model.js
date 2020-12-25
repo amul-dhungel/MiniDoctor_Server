@@ -11,6 +11,7 @@ const User = Schema({
     phoneNumber: {
         type: String,
         required: true,
+        unique: true,
     },
     email: {
         type: String,
@@ -33,7 +34,6 @@ const User = Schema({
     img: {
         type: String,
         default: "",
-        required: false
     }
 
 })
