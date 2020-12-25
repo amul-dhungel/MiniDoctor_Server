@@ -41,6 +41,6 @@ app.route("/").get((req, res) => res.json(
 
 // Listening port, i.e. setting up local main server port connection
 
-app.listen(port, () => console.log(`Server is running on port ${port}`))
+app.listen(port, "0.0.0.0", () => console.log(`Server is running on port ${port}`))
 
 

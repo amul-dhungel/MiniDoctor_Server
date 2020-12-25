@@ -5,6 +5,7 @@ const jwt = require('jsonwebtoken')
 const middleware = require('../middleware')
 const multer = require('multer')
 const path = require("path")
+const { profile } = require('console')
 
 const router = express.Router()
 
@@ -88,7 +89,11 @@ router.route('/register').post((req, res) => {
         })
 })
 
-
+// check profile data
+router.route("/checkProfile").get(middleware.checkToken, (req, res) => {
+    User.findOne({ phoneNumber: req.decoded.phoneNumber },
+    )
+})
 
 
 
