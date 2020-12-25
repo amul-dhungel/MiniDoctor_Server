@@ -32,14 +32,14 @@ const upload = multer({
     limits: {
         fileSize: 1024 * 1024 * 6
     },
-    fileFilter: fileFilter
+    //fileFilter: fileFilter
 })
 
 // adding and update profile image
 
 router.route("/register/image")
-    .patch(middleware.checkToken, upload.single("img"), async (req, res) => {
-        await User.findOneAndUpdate(
+    .patch(middleware.checkToken, upload.single("img"), (req, res) => {
+        User.findOneAndUpdate(
             { phoneNumber: req.decoded.phoneNumber },
             {
                 $set: {
@@ -91,7 +91,16 @@ router.route('/register').post((req, res) => {
 
 // check profile data
 router.route("/checkProfile").get(middleware.checkToken, (req, res) => {
-    User.findOne({ phoneNumber: req.decoded.phoneNumber },
+    User.findOne({ phoneNumber: req.decoded.phoneNumber }, (err, result) => {
+        if (err) return res.json({ err: err })
+        else if (result == null) {
+            return res.json({
+                status: false
+            })
+        } else {
+            return res.json({ status: true })
+        }
+    }
     )
 })
 
