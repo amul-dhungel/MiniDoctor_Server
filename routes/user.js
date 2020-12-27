@@ -103,6 +103,49 @@ router.route("/checkProfile").get(middleware.checkToken, (req, res) => {
     )
 })
 
+// get profile data
+
+router.route("/getData").get(middleware.checkToken, (req, res) => {
+    User.findOne({ phoneNumber: req.decoded.phoneNumber }, (err, result) => {
+        if (err) return res.json({ err: err })
+        if (result == null) return res.json({ data: [] })
+        else return res.json({ data: result })
+    })
+
+})
+
+// update the profile data
+
+router.route("/updateProfile").patch(middleware.checkToken, async (req, res) => {
+    let profile = {}
+    await User.findOne({ phoneNumber: req.decoded.phoneNumber }, (err, result) => {
+        if (err) {
+            profile = {}
+        }
+        if (result != null) {
+            profile = result;
+        }
+
+    })
+
+    User.findOneAndUpdate({ phoneNumber: req.decoded.phoneNumber }, {
+
+        $set: {
+            name: req.body.name ? req.body.name : profile.name,
+            email: req.body.email ? req.body.email : profile.email,
+            address: req.body.address ? req.body.address : profile.address,
+        }
+    },
+        { new: true },
+        (err, result) => {
+            if (err) return res.json({ err: err })
+            if (result == null) return res.json({ data: [] })
+            else return res.json({ data: result })
+        }
+    )
+
+})
+
 
 
 module.exports = router
