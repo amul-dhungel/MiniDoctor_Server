@@ -27,17 +27,7 @@ router.route('/login').get((req, res) => {
     })
         .then(() => res.send("Message sent"))
         .catch((err) => console.log(err))
-    // client
-    //     .verify
-    //     .services(serviceID)
-    //     .verifications
-    //     .create({
-    //         to: `+${req.query.phonenumber}`,
-    //         channel: req.query.channel
-    //     })
-    //     .then((data) => {
-    //         res.status(200).send(data)
-    //     })
+
 })
 
 // route of verification phone authentication

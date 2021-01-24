@@ -20,6 +20,18 @@ app.use(express.json())
 const userRoute = require('./routes/user')
 app.use('/user', userRoute)
 
+// hospital details register
+
+app.use(express.json())
+const hospitalRoute = require('./routes/hospital')
+app.use('/hospitals', hospitalRoute)
+
+// doctor details register
+
+app.use(express.json())
+const doctorRoute = require('./routes/doctor')
+app.use('/doctors', doctorRoute)
+
 // profile picture route
 
 app.use('/uploads', express.static("uploads"))
