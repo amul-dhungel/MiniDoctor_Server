@@ -51,7 +51,7 @@ router.route("/presc").get((req, res) => res.json
 
 router.route("/prescription/image")
     .patch(middleware.checkToken, upload.single("img"), (req, res) => {
-        User.findOneAndUpdate(
+        Prescription.findOneAndUpdate(
             { phoneNumber: req.decoded.phoneNumber },
             {
                 $set: {
