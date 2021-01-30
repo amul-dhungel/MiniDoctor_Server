@@ -32,6 +32,12 @@ app.use(express.json())
 const doctorRoute = require('./routes/doctor')
 app.use('/doctors', doctorRoute)
 
+// prescription details
+
+app.use(express.json())
+const prescriptionRoute = require('./routes/prescription')
+app.use('/PrescriptionSheet', prescriptionRoute)
+
 // profile picture route
 
 app.use('/uploads', express.static("uploads"))
