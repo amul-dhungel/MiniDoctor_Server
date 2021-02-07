@@ -35,7 +35,7 @@ const upload = multer({
     limits: {
         fileSize: 1024 * 1024 * 6
     },
-    //fileFilter: fileFilter
+    fileFilter: fileFilter // remember to comment it
 })
 
 // checking API
@@ -47,12 +47,12 @@ router.route("/presc").get((req, res) => res.json
 
 )
 
-// adding and update profile image
+// adding and update prescription image
 
 router.route("/prescription/image")
     .patch(middleware.checkToken, upload.single("img"), (req, res) => {
-        Prescription.findOneAndUpdate(
-            { phoneNumber: req.decoded.phoneNumber },
+        Prescription.findByIdAndUpdate(
+            { _id: req.body._id },
             {
                 $set: {
                     img: req.file.path
@@ -73,11 +73,12 @@ router.route("/prescription/image")
 
 // register or adding user data details to the database
 
-router.route('/prescription/:id').post(middleware.checkToken, async (req, res) => {
+router.route('/prescription/:id').post(middleware.checkToken, upload.single("img"), async (req, res) => {
     console.log("Inside the register");
     const prescription = new Prescription({
         hospitalID: await Hospitals.find({ name: req.params.id }).populate('hospitalID').exec(),
-        userID: await User.findOne({ phoneNumber: req.decoded.phoneNumber }).populate('userID').exec()
+        userID: await User.findOne({ phoneNumber: req.decoded.phoneNumber }).populate('userID').exec(),
+        img: req.file.path
     })
     prescription
         .save()
@@ -92,14 +93,5 @@ router.route('/prescription/:id').post(middleware.checkToken, async (req, res) =
             res.status(403).json({ msg: err })
         })
 })
-
-
-
-
-
-
-
-
-
 
 module.exports = router
