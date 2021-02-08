@@ -73,12 +73,12 @@ router.route("/prescription/image")
 
 // register or adding user data details to the database
 
-router.route('/prescription/:id').post(middleware.checkToken, upload.single("img"), async (req, res) => {
+router.route('/prescription/:id').post(middleware.checkToken,/* upload.single("img")*/ async (req, res) => {
     console.log("Inside the register");
     const prescription = new Prescription({
         hospitalID: await Hospitals.find({ name: req.params.id }).populate('hospitalID').exec(),
         userID: await User.findOne({ phoneNumber: req.decoded.phoneNumber }).populate('userID').exec(),
-        img: req.file.path
+        //img: req.file.path
     })
     prescription
         .save()
