@@ -83,16 +83,21 @@ router.route('/prescription/:id').post(middleware.checkToken, /*upload.single("i
     prescription
         .save()
         .then((result) => {
-            console.log(result["_id"])
-            res.status(200).json({
+            //console.log(result)
+            // res.status(200).json({
+            //     status: "Prescription added",
+            //     data: result["_id"],
+            //     token: token
+            // })
+            res.json({
                 status: "Prescription added",
-                data: result["_id"],
-                token: token
+                data: result["_id"]
             })
-
+            return result
         })
         .catch((err) => {
-            res.status(403).json({ msg: err })
+            return res.status(403).json({ msg: err })
+            // return result
         })
 })
 
