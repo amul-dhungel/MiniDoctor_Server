@@ -19,7 +19,7 @@ const storage = multer.diskStorage({
         cb(null, "./prescription Pic")
     },
     filename: (req, file, cb) => {
-        cb(null, req.decoded.phoneNumber + ".jpg")
+        cb(null, req.params.id + ".jpg")
     }
 })
 
@@ -35,7 +35,7 @@ const upload = multer({
     limits: {
         fileSize: 1024 * 1024 * 6
     },
-    fileFilter: fileFilter // remember to comment it
+    //fileFilter: fileFilter // remember to comment it
 })
 
 // checking API
@@ -49,10 +49,10 @@ router.route("/presc").get((req, res) => res.json
 
 // adding and update prescription image
 
-router.route("/prescription/image")
+router.route("/prescription/image/:id")
     .patch(middleware.checkToken, upload.single("img"), (req, res) => {
-        Prescription.findByIdAndUpdate(
-            { _id: req.body._id },
+        Prescription.findOneAndUpdate(
+            { _id: req.params.id },
             {
                 $set: {
                     img: req.file.path
@@ -71,20 +71,22 @@ router.route("/prescription/image")
     })
 
 
-// register or adding user data details to the database
+// register or adding user data along with image details to the database
 
-router.route('/prescription/:id').post(middleware.checkToken, upload.single("img"), async (req, res) => {
+router.route('/prescription/:id').post(middleware.checkToken, /*upload.single("img"),*/ async (req, res) => {
     console.log("Inside the register");
     const prescription = new Prescription({
         hospitalID: await Hospitals.find({ name: req.params.id }).populate('hospitalID').exec(),
         userID: await User.findOne({ phoneNumber: req.decoded.phoneNumber }).populate('userID').exec(),
-        img: req.file.path
+        //img: req.file.path
     })
     prescription
         .save()
-        .then(() => {
+        .then((result) => {
+            console.log(result["_id"])
             res.status(200).json({
                 status: "Prescription added",
+                data: result["_id"],
                 token: token
             })
 
