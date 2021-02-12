@@ -1,25 +1,26 @@
 const express = require('express')
-const Manufacture = require('../models/manufacture.model')
+const Disease = require('../models/disease.model')
 
 const router = express.Router()
 
 
-router.route("/man").get((req, res) => res.json
+router.route("/dis").get((req, res) => res.json
     ({
-        status: "all manufacturers available"
+        status: "all diseases fine"
     })
 
 )
 
-// post the details of manufacture
+// post the details of diseases
 
-router.route('/manufactureDetails').post((req, res) => {
-    const manufactures = new Manufacture({
+router.route('/diseaseDetails').post((req, res) => {
+    const diseases = new Disease({
         name: req.body.name,
-        supplierNumber: req.body.supplierNumber,
-        address: req.body.address,
+        description: req.body.description,
+        generic: req.body.generic,
+        usage: req.body.usage
     })
-    manufactures
+    diseases
         .save()
         .then(async () => {
 
@@ -33,9 +34,9 @@ router.route('/manufactureDetails').post((req, res) => {
         })
 })
 
-//get manufacture names from database
+//get diseases names from database
 
-router.route("/manufactureNames").get((req, res) => {
+router.route("/diseaseNames").get((req, res) => {
     Disease.find((err, result) => {
         if (err) return res.json({ err: err })
         if (result == null) return res.json({ data: [] })
