@@ -36,7 +36,7 @@ router.route('/manufactureDetails').post((req, res) => {
 //get manufacture names from database
 
 router.route("/manufactureNames").get((req, res) => {
-    Disease.find((err, result) => {
+    Manufacture.find((err, result) => {
         if (err) return res.json({ err: err })
         if (result == null) return res.json({ data: [] })
         else return res.json({ data: result })
