@@ -59,6 +59,11 @@ const phoneauth = require('./routes/authconfig/phoneauth')
 app.use('/', phoneauth)
 
 
+// medicine details
+app.use(express.json())
+const medicineRoute = require('./routes/medicine')
+app.use('/medicine', medicineRoute)
+
 
 //main section testing
 app.route("/").get((req, res) => res.json(
