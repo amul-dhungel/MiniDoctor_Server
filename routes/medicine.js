@@ -29,7 +29,7 @@ router.route("/medicineNames").get((req, res) => {
 
 // adding medicine details based on manufacture and disease id
 
-router.route('/medicineDetails/:disease/:manufacutre').post(async (req, res) => {
+router.route('/medicineDetails/:disease/:manufacture').post(async (req, res) => {
     const medicine = new Medicine({
         name: req.body.name,
         price: req.body.price,
@@ -50,9 +50,6 @@ router.route('/medicineDetails/:disease/:manufacutre').post(async (req, res) => 
             // return result
         })
 })
-
-
-
 
 
 module.exports = router
