@@ -7,7 +7,6 @@ const router = express.Router()
 
 
 // checking API
-
 router.route("/med").get((req, res) => res.json
     ({
         status: "Medicine details ready"
@@ -51,5 +50,30 @@ router.route('/medicineDetails/:disease/:manufacture').post(async (req, res) => 
         })
 })
 
+
+//get disease name of specific medicines from database
+
+router.route("/diseaseOfMedicine/:diseaseID").get((req, res) => {
+    // Medicine.find((err, result) => {
+    //     if (err) return res.json({ err: err })
+    //     if (result == null) return res.json({ data: [] })
+    //     else return res.json({ data: result })
+    // })
+    Disease.findById(req.params.diseaseID, req.params.manufactureID, (err, result) => {
+        if (err) return res.json({ err: err })
+        if (result == null) return res.json({ data: [] })
+        else return res.json({ data: result })
+    })
+})
+
+// get manufacture name of specific disease from database
+
+router.route("/manufactureOfMedicine/:manufactureID").get((req, res) => {
+    Manufacture.findById(req.params.manufactureID, (err, result) => {
+        if (err) return res.json({ err: err })
+        if (result == null) return res.json({ data: [] })
+        else return res.json({ data: result })
+    })
+})
 
 module.exports = router
