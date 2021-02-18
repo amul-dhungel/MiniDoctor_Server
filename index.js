@@ -65,6 +65,12 @@ const medicineRoute = require('./routes/medicine')
 app.use('/medicine', medicineRoute)
 
 
+// buyer details
+app.use(express.json())
+const buyerRoute = require('./routes/buyer')
+app.use('/buyer', buyerRoute)
+
+
 //main section testing
 app.route("/").get((req, res) => res.json(
     {
