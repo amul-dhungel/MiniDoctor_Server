@@ -17,7 +17,7 @@ connection.once("open", () => {
 // user details register
 app.use(express.json())
 const userRoute = require('./routes/user')
-app.use('/user', userRoute)
+app.use('/users', userRoute)
 
 
 // hospital details register
