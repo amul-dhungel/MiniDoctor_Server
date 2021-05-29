@@ -17,7 +17,7 @@ connection.once("open", () => {
 // user details register
 app.use(express.json())
 const userRoute = require('./routes/user')
-app.use('/users', userRoute)
+app.use('/user', userRoute)
 
 
 // hospital details register
@@ -80,6 +80,4 @@ app.route("/").get((req, res) => res.json(
 
 
 // Listening port, i.e. setting up local main server port connection
-app.listen(port, () => console.log(`Server is running on port ${port}`))
-
-
+app.listen(port, "0.0.0.0", () => console.log(`Server is running on port ${port}`))
