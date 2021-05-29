@@ -55,8 +55,8 @@ app.use('/uploads', express.static("uploads"))
 
 
 // phone auth
-const phoneauth = require('./routes/authconfig/phoneauth')
-app.use('/', phoneauth)
+// const phoneauth = require('./routes/authconfig/phoneauth')
+// app.use('/', phoneauth)
 
 
 // medicine details
