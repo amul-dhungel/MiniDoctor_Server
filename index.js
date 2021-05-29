@@ -4,7 +4,7 @@ const port = process.env.PORT || 5000
 const app = express()
 
 // mongodb link setup
-mongoose.connect('mongodb+srv://admin:admin@minidoctor.3ef6h.mongodb.net/AppDB?retryWrites=true&w=majority', { useNewUrlParser: true });
+mongoose.connect('mongodb+srv://admin:admin@minidoctor.3ef6h.mongodb.net/AppDB?retryWrites=true&w=majority', { useNewUrlParser: true ,useUnifiedTopology: true});
 
 
 // mongodb connection setup
